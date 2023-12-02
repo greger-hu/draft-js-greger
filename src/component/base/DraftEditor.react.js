@@ -127,6 +127,8 @@ class UpdateDraftEditorFlags extends React.Component<{
   }
 }
 
+const KEY_EVENTS = ['onKeyDown', 'onKeyPress', 'onKeyUp', 'onInput', 'onBeforeInput'];
+
 /**
  * `DraftEditor` is the root editor component. It composes a `contentEditable`
  * div, and provides a wide variety of useful function props for managing the
@@ -267,6 +269,9 @@ class DraftEditor extends React.Component<DraftEditorProps, State> {
     // effectively a no-op. In async mode, this ensures all updates scheduled
     // inside the handler are flushed before React yields to the browser.
     return e => {
+      if (this.props.keyIgnored && KEY_EVENTS.indexOf(eventName) != -1) {
+        return;
+      }
       if (!this.props.readOnly) {
         const method = this._handler && this._handler[eventName];
         if (method) {

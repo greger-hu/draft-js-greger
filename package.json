@@ -1,14 +1,14 @@
 {
-  "name": "draft-js",
+  "name": "draft-js-greger",
   "description": "A React framework for building text editors.",
-  "version": "0.11.7",
+  "version": "1.0.4",
   "keywords": [
     "draftjs",
     "editor",
     "react",
     "richtext"
   ],
-  "homepage": "http://draftjs.org/",
+  "homepage": "http://www.greger.top",
   "bugs": "https://github.com/facebook/draft-js/issues",
   "files": [
     "dist/",
@@ -17,7 +17,7 @@
   ],
   "main": "lib/Draft.js",
   "style": "dist/Draft.css",
-  "repository": "facebook/draft-js",
+  "repository": "greger-hu/draft-js-greger",
   "license": "MIT",
   "scripts": {
     "prepublish": "npm run build",
