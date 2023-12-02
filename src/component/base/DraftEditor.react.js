@@ -127,7 +127,9 @@ class UpdateDraftEditorFlags extends React.Component<{
   }
 }
 
-const KEY_EVENTS = ['onKeyDown', 'onKeyPress', 'onKeyUp', 'onInput', 'onBeforeInput', 'onPaste', 'onDrop'];
+const KEY_EVENTS = ['onKeyDown', 'onKeyPress', 'onKeyUp', 'onInput', 'onBeforeInput', 'onPaste', 'onDrop',
+  'onCompositionStart', 'onCompositionEnd' // 输入法输入时触发
+];
 
 /**
  * `DraftEditor` is the root editor component. It composes a `contentEditable`
