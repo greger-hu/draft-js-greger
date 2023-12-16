@@ -212,6 +212,7 @@ class DraftEditor extends React.Component<DraftEditorProps, State> {
     this._placeholderAccessibilityID = 'placeholder-' + this._editorKey;
     this._latestEditorState = props.editorState;
     this._latestCommittedEditorState = props.editorState;
+    this._model = props.model || {};
 
     this._onBeforeInput = this._buildHandler('onBeforeInput');
     this._onBlur = this._buildHandler('onBlur');
@@ -338,6 +339,12 @@ class DraftEditor extends React.Component<DraftEditorProps, State> {
     );
   }
 
+  _fillUpModel() {
+    this._model.update = (x) => {
+      this._latestEditorState = x;
+    };
+  }
+
   render(): React.Node {
     const {
       blockRenderMap,
@@ -350,7 +357,10 @@ class DraftEditor extends React.Component<DraftEditorProps, State> {
       readOnly,
       textAlignment,
       textDirectionality,
+      model
     } = this.props;
+    this._model = model || {};
+    this._fillUpModel();
 
     const rootClass = cx({
       'DraftEditor/root': true,
