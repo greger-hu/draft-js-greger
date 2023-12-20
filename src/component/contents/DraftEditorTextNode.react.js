@@ -46,7 +46,7 @@ const NEWLINE_A = ref =>
     //   {'\n'}
     // </span>
     <div key="A" data-text="true" ref={ref} style={{
-      height: 18
+      height: 20
     }}></div>
   ) : (
     <br key="A" data-text="true" ref={ref} />
@@ -58,7 +58,7 @@ const NEWLINE_B = ref =>
     //   {'\n'}
     // </span>
     <div key="B" data-text="true" ref={ref} style={{
-      height: 18
+      height: 20
     }}></div>
   ) : (
     <br key="B" data-text="true" ref={ref} />
