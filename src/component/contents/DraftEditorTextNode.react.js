@@ -19,7 +19,8 @@ const isElement = require('isElement');
 
 // In IE, spans with <br> tags render as two newlines. By rendering a span
 // with only a newline character, we can be sure to render a single line.
-const useNewlineChar = UserAgent.isBrowser('IE <= 11');
+// const useNewlineChar = UserAgent.isBrowser('IE <= 11');
+const useNewlineChar = true; // 这里不能使用<br> 因为ContentEditable会自动把br删掉，导致后面react渲染报错。
 
 /**
  * Check whether the node should be considered a newline.
