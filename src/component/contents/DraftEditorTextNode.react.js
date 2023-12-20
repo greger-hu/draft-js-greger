@@ -42,18 +42,24 @@ function isNewline(node: Element): boolean {
  */
 const NEWLINE_A = ref =>
   useNewlineChar ? (
-    <span key="A" data-text="true" ref={ref}>
-      {'\n'}
-    </span>
+    // <span key="A" data-text="true" ref={ref}> // 使用span，输入法输入时会有问题。 contenteditable默认是用br。实测使用div+height也行
+    //   {'\n'}
+    // </span>
+    <div key="A" data-text="true" ref={ref} style={{
+      height: 18
+    }}></div>
   ) : (
     <br key="A" data-text="true" ref={ref} />
   );
 
 const NEWLINE_B = ref =>
   useNewlineChar ? (
-    <span key="B" data-text="true" ref={ref}>
-      {'\n'}
-    </span>
+    // <span key="B" data-text="true" ref={ref}>
+    //   {'\n'}
+    // </span>
+    <div key="B" data-text="true" ref={ref} style={{
+      height: 18
+    }}></div>
   ) : (
     <br key="B" data-text="true" ref={ref} />
   );

@@ -103,7 +103,7 @@ class DraftEditorLeaf extends React.Component<Props> {
 
     if (child.nodeType === Node.TEXT_NODE) {
       targetNode = child;
-    } else if (isHTMLBRElement(child)) {
+    } else if (isHTMLBRElement(child) || !child.firstChild) {
       targetNode = node;
     } else {
       targetNode = child.firstChild;
