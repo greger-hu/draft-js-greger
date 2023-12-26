@@ -516,6 +516,29 @@ class EditorState {
     return EditorState.set(editorState, editorStateChanges);
   }
 
+  static setNew(
+    editorState: EditorState,
+    contentState: ContentState,
+    forceSelection: boolean = true,
+  ): EditorState {
+    if (editorState.getCurrentContent() === contentState) {
+      return editorState;
+    }
+
+    const directionMap = EditorBidiService.getDirectionMap(
+      contentState,
+      editorState.getDirectionMap(),
+    );
+
+    return EditorState.set(editorState, {
+      currentContent: contentState,
+      directionMap,
+      selection: contentState.getSelectionAfter(),
+      forceSelection,
+      inlineStyleOverride: null,
+    });
+  }
+
   /**
    * Make the top ContentState in the undo stack the new current content and
    * push the current content onto the redo stack.
