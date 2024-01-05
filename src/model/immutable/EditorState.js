@@ -445,8 +445,9 @@ class EditorState {
     contentState: ContentState,
     changeType: EditorChangeType,
     forceSelection: boolean = true,
+    force:boolean
   ): EditorState {
-    if (editorState.getCurrentContent() === contentState) {
+    if (editorState.getCurrentContent() === contentState && !force) {
       return editorState;
     }
 
