@@ -46,7 +46,8 @@ const NEWLINE_A = ref =>
     //   {'\n'}
     // </span>
     <div key="A" data-text="true" ref={ref} style={{
-      height: 20
+      height: 18,
+      display: 'inline-block' // 使用inline-block，不然复制文本时，会被挤到下一行。。
     }}></div>
   ) : (
     <br key="A" data-text="true" ref={ref} />
@@ -58,7 +59,8 @@ const NEWLINE_B = ref =>
     //   {'\n'}
     // </span>
     <div key="B" data-text="true" ref={ref} style={{
-      height: 20
+      height: 18,
+      display: 'inline-block'
     }}></div>
   ) : (
     <br key="B" data-text="true" ref={ref} />
