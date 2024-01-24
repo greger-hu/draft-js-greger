@@ -40,15 +40,18 @@ function isNewline(node: Element): boolean {
  * See http://jsfiddle.net/9khdavod/ for the failure case, and
  * http://jsfiddle.net/7pg143f7/ for the fixed case.
  */
+
+const divStyle = {
+  height: 18,
+  display: 'inline-block', // 使用inline-block，不然复制文本时，会被挤到下一行。。
+  minWidth: '10px' // 要加个min-width，不然移动端光标展示不出来
+}
 const NEWLINE_A = ref =>
   useNewlineChar ? (
     // <span key="A" data-text="true" ref={ref}> // 使用span，输入法输入时会有问题。 contenteditable默认是用br。实测使用div+height也行
     //   {'\n'}
     // </span>
-    <div key="A" data-text="true" ref={ref} style={{
-      height: 18,
-      display: 'inline-block' // 使用inline-block，不然复制文本时，会被挤到下一行。。
-    }}></div>
+    <div key="A" data-text="true" ref={ref} style={divStyle}></div>
   ) : (
     <br key="A" data-text="true" ref={ref} />
   );
@@ -58,10 +61,7 @@ const NEWLINE_B = ref =>
     // <span key="B" data-text="true" ref={ref}>
     //   {'\n'}
     // </span>
-    <div key="B" data-text="true" ref={ref} style={{
-      height: 18,
-      display: 'inline-block'
-    }}></div>
+    <div key="B" data-text="true" ref={ref} style={divStyle}></div>
   ) : (
     <br key="B" data-text="true" ref={ref} />
   );
