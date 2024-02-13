@@ -344,6 +344,7 @@ class DraftEditor extends React.Component<DraftEditorProps, State> {
     this._model.update = (x) => {
       this._latestEditorState = x;
     };
+    this._model.uuid = this.uuid;
   }
 
   render(): React.Node {
