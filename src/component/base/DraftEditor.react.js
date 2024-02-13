@@ -12,10 +12,10 @@
 
 'use strict';
 
-import type {BlockMap} from 'BlockMap';
-import type {DraftEditorModes} from 'DraftEditorModes';
-import type {DraftEditorDefaultProps, DraftEditorProps} from 'DraftEditorProps';
-import type {DraftScrollPosition} from 'DraftScrollPosition';
+import type { BlockMap } from 'BlockMap';
+import type { DraftEditorModes } from 'DraftEditorModes';
+import type { DraftEditorDefaultProps, DraftEditorProps } from 'DraftEditorProps';
+import type { DraftScrollPosition } from 'DraftScrollPosition';
 
 const DefaultDraftBlockRenderMap = require('DefaultDraftBlockRenderMap');
 const DefaultDraftInlineStyle = require('DefaultDraftInlineStyle');
@@ -151,7 +151,7 @@ class DraftEditor extends React.Component<DraftEditorProps, State> {
     spellCheck: false,
     stripPastedStyles: false,
   };
-
+  uuid;
   _blockSelectEvents: boolean;
   _clipboard: ?BlockMap;
   _handler: ?Object;
@@ -234,6 +234,7 @@ class DraftEditor extends React.Component<DraftEditorProps, State> {
     this._onMouseUp = this._buildHandler('onMouseUp');
     this._onPaste = this._buildHandler('onPaste');
     this._onSelect = this._buildHandler('onSelect');
+    this.uuid = (Date.now() + '' + Math.random()).replace('.', '');
 
     this.getEditorKey = () => this._editorKey;
 
@@ -250,9 +251,9 @@ class DraftEditor extends React.Component<DraftEditorProps, State> {
           // eslint-disable-next-line no-console
           console.warn(
             `Supplying an \`${propName}\` prop to \`DraftEditor\` has ` +
-              'been deprecated. If your handler needs access to the keyboard ' +
-              'event, supply a custom `keyBindingFn` prop that falls back to ' +
-              'the default one (eg. https://is.gd/wHKQ3W).',
+            'been deprecated. If your handler needs access to the keyboard ' +
+            'event, supply a custom `keyBindingFn` prop that falls back to ' +
+            'the default one (eg. https://is.gd/wHKQ3W).',
           );
         }
       });
@@ -295,7 +296,7 @@ class DraftEditor extends React.Component<DraftEditorProps, State> {
     // Instead of having a direct ref on the child, we'll grab it here.
     // This is safe as long as the rendered structure is static (which it is).
     // This lets the child support ref={props.editorRef} without merging refs.
-    this.editor = node !== null ? (node: any).firstChild : null;
+    this.editor = node !== null ? (node: any).firstChild: null;
   };
 
   _showPlaceholder(): boolean {
@@ -519,7 +520,7 @@ class DraftEditor extends React.Component<DraftEditorProps, State> {
   focus: (scrollPosition?: DraftScrollPosition) => void = (
     scrollPosition?: DraftScrollPosition,
   ): void => {
-    const {editorState} = this.props;
+    const { editorState } = this.props;
     const alreadyHasFocus = editorState.getSelection().getHasFocus();
     const editorNode = this.editor;
 
@@ -530,7 +531,7 @@ class DraftEditor extends React.Component<DraftEditorProps, State> {
     }
 
     const scrollParent = Style.getScrollParent(editorNode);
-    const {x, y} = scrollPosition || getScrollPosition(scrollParent);
+    const { x, y } = scrollPosition || getScrollPosition(scrollParent);
 
     invariant(isHTMLElement(editorNode), 'editorNode is not an HTMLElement');
 
@@ -571,8 +572,8 @@ class DraftEditor extends React.Component<DraftEditorProps, State> {
    * the active mode.
    */
   setMode: DraftEditorModes => void = (mode: DraftEditorModes): void => {
-    const {onPaste, onCut, onCopy} = this.props;
-    const editHandler = {...handlerMap.edit};
+    const { onPaste, onCut, onCopy } = this.props;
+    const editHandler = { ...handlerMap.edit };
 
     if (onPaste) {
       /* $FlowFixMe[incompatible-type] (>=0.117.0 site=www,mobile) This comment

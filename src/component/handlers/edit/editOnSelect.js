@@ -12,6 +12,7 @@
 'use strict';
 
 import type DraftEditor from 'DraftEditor.react';
+const DraftUtils = require('DraftUtils');
 
 const DraftJsDebugLogging = require('DraftJsDebugLogging');
 const EditorState = require('EditorState');
@@ -20,6 +21,9 @@ const getContentEditableContainer = require('getContentEditableContainer');
 const getDraftEditorSelection = require('getDraftEditorSelection');
 
 function editOnSelect(editor: DraftEditor): void {
+  DraftUtils.lockCall(editor.uuid, editOnSelectMain);
+}
+function editOnSelectMain(editor: DraftEditor): void {
   if (
     editor._blockSelectEvents ||
     editor._latestEditorState !== editor.props.editorState

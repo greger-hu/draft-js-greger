@@ -12,6 +12,7 @@
 'use strict';
 
 import type DraftEditor from 'DraftEditor.react';
+const DraftUtils = require('DraftUtils');
 
 const getFragmentFromSelection = require('getFragmentFromSelection');
 
@@ -21,6 +22,9 @@ const getFragmentFromSelection = require('getFragmentFromSelection');
  * fragment if no external clipboard data is supplied.
  */
 function editOnCopy(editor: DraftEditor, e: SyntheticClipboardEvent<>): void {
+  DraftUtils.lockCall(editor.uuid, editOnCopyMain);
+}
+function editOnCopyMain(editor: DraftEditor, e: SyntheticClipboardEvent<>): void {
   const editorState = editor._latestEditorState;
   const selection = editorState.getSelection();
 

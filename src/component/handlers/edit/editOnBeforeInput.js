@@ -13,6 +13,7 @@
 
 import type DraftEditor from 'DraftEditor.react';
 import type {DraftInlineStyle} from 'DraftInlineStyle';
+const DraftUtils = require('DraftUtils');
 
 const DraftModifier = require('DraftModifier');
 const EditorState = require('EditorState');
@@ -77,10 +78,10 @@ function replaceText(
  * preserve spellcheck highlighting, which disappears or flashes if re-render
  * occurs on the relevant text nodes.
  */
-function editOnBeforeInput(
-  editor: DraftEditor,
-  e: SyntheticInputEvent<HTMLElement>,
-): void {
+function editOnBeforeInput( editor: DraftEditor, e: SyntheticInputEvent<HTMLElement>, ): void {
+  DraftUtils.lockCall(editor.uuid, editOnBeforeInputMain);
+}
+function editOnBeforeInputMain( editor: DraftEditor, e: SyntheticInputEvent<HTMLElement>, ): void {
   if (editor._pendingStateFromBeforeInput !== undefined) {
     editor.update(editor._pendingStateFromBeforeInput);
     editor._pendingStateFromBeforeInput = undefined;

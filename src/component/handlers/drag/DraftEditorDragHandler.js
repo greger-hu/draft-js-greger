@@ -13,6 +13,7 @@
 
 import type DraftEditor from 'DraftEditor.react';
 import type SelectionState from 'SelectionState';
+const DraftUtils = require('DraftUtils');
 
 const DataTransfer = require('DataTransfer');
 const DraftModifier = require('DraftModifier');
@@ -79,7 +80,10 @@ const DraftEditorDragHandler = {
   /**
    * Handle data being dropped.
    */
-  onDrop: function(editor: DraftEditor, e: Object): void {
+  onDrop(editor: DraftEditor, e: Object): void {
+    DraftUtils.lockCall(editor.uuid, this.onDropMain);
+  },
+  onDropMain(editor: DraftEditor, e: Object): void {
     const data = new DataTransfer(e.nativeEvent.dataTransfer);
 
     const editorState: EditorState = editor._latestEditorState;

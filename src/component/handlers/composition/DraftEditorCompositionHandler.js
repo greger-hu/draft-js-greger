@@ -12,6 +12,7 @@
 'use strict';
 
 import type DraftEditor from 'DraftEditor.react';
+const DraftUtils = require('DraftUtils');
 
 const DOMObserver = require('DOMObserver');
 const DraftModifier = require('DraftModifier');
@@ -141,6 +142,9 @@ const DraftEditorCompositionHandler = {
    * so we update to force it back to the correct place.
    */
   resolveComposition(editor: DraftEditor): void {
+    DraftUtils.lockCall(editor.uuid, this.resolveCompositionMain);
+  },
+  resolveCompositionMain(editor: DraftEditor): void {
     if (stillComposing) {
       return;
     }

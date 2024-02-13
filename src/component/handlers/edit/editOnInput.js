@@ -13,6 +13,7 @@
 
 import type {SelectionObject} from 'DraftDOMTypes';
 import type DraftEditor from 'DraftEditor.react';
+const DraftUtils = require('DraftUtils');
 
 const DraftModifier = require('DraftModifier');
 const DraftOffsetKey = require('DraftOffsetKey');
@@ -59,7 +60,10 @@ function onInputType(inputType: string, editorState: EditorState): EditorState {
  * when an `input` change leads to a DOM/model mismatch, the change should be
  * due to a spellcheck change, and we can incorporate it into our model.
  */
-function editOnInput(editor: DraftEditor, e: SyntheticInputEvent<>): void {
+function editOnInput(editor: DraftEditor, event: ?SyntheticInputEvent<>): void {
+  DraftUtils.lockCall(editor.uuid, editOnInputMain);
+}
+function editOnInputMain(editor: DraftEditor, event: ?SyntheticInputEvent<>): void {
   if (editor._pendingStateFromBeforeInput !== undefined) {
     editor.update(editor._pendingStateFromBeforeInput);
     editor._pendingStateFromBeforeInput = undefined;

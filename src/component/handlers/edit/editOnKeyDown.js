@@ -13,6 +13,7 @@
 
 import type DraftEditor from 'DraftEditor.react';
 import type {DraftEditorCommand} from 'DraftEditorCommand';
+const DraftUtils = require('DraftUtils');
 
 const DraftModifier = require('DraftModifier');
 const EditorState = require('EditorState');
@@ -83,10 +84,10 @@ function onKeyCommand(
  * See `getDefaultKeyBinding` for defaults. Alternatively, the top-level
  * component may provide a custom mapping via the `keyBindingFn` prop.
  */
-function editOnKeyDown(
-  editor: DraftEditor,
-  e: SyntheticKeyboardEvent<HTMLElement>,
-): void {
+function editOnKeyDown( editor: DraftEditor, e: SyntheticKeyboardEvent<HTMLElement>, ): void {
+  DraftUtils.lockCall(editor.uuid, editOnKeyDownMain);
+}
+function editOnKeyDownMain( editor: DraftEditor, e: SyntheticKeyboardEvent<HTMLElement>, ): void {
   const keyCode = e.which;
   const editorState = editor._latestEditorState;
   function callDeprecatedHandler(

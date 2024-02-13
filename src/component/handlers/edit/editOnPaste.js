@@ -14,6 +14,7 @@
 import type {BlockMap} from 'BlockMap';
 import type DraftEditor from 'DraftEditor.react';
 import type {EntityMap} from 'EntityMap';
+const DraftUtils = require('DraftUtils');
 
 const BlockMapBuilder = require('BlockMapBuilder');
 const CharacterMetadata = require('CharacterMetadata');
@@ -32,6 +33,9 @@ const splitTextIntoTextBlocks = require('splitTextIntoTextBlocks');
  * Paste content.
  */
 function editOnPaste(editor: DraftEditor, e: SyntheticClipboardEvent<>): void {
+  DraftUtils.lockCall(editor.uuid, editOnPasteMain);
+}
+function editOnPasteMain(editor: DraftEditor, e: SyntheticClipboardEvent<>): void {
   e.preventDefault();
   const data = new DataTransfer(e.clipboardData);
 

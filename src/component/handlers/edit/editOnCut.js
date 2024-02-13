@@ -12,6 +12,7 @@
 'use strict';
 
 import type DraftEditor from 'DraftEditor.react';
+const DraftUtils = require('DraftUtils');
 
 const DraftModifier = require('DraftModifier');
 const EditorState = require('EditorState');
@@ -31,6 +32,9 @@ const isNode = require('isInstanceOfNode');
  * styles and entities, for use as an internal paste.
  */
 function editOnCut(editor: DraftEditor, e: SyntheticClipboardEvent<>): void {
+  DraftUtils.lockCall(editor.uuid, editOnCutMain);
+}
+function editOnCutMain(editor: DraftEditor, e: SyntheticClipboardEvent<>): void {
   const editorState = editor._latestEditorState;
   const selection = editorState.getSelection();
   const element = e.target;
