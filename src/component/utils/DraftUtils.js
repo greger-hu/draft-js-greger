@@ -1,14 +1,23 @@
+
+const EditorState = require('EditorState');
+
+const getContentEditableContainer = require('getContentEditableContainer');
+const getDraftEditorSelection = require('getDraftEditorSelection');
+
+// 同步调用，防止editorState存在多个不同副本，导致数据丢失
 const lockCall = (uuid, func, sync, args) => {
     // 使用乐观锁 处理并发问题 -- 没必要 -- js单线程的，所以只需要简单同步下就行了
     window.dLock = window.dLock || {};
-    let rand = Math.random();
+    // let rand = Math.random();
     while (true) {
-        if (dLock[uuid] && dLcok[uuid] != rand) {
+        if (dLock[uuid] && dLock[uuid] != func) {
             continue;
         }
-        dLock[uuid] = rand;
+        dLock[uuid] = func;
+        console.log(func.name + '开始');
         func(...args);
         delete dLock[uuid];
+        console.log(func.name + '结束');
         break;
     }
 }
@@ -38,7 +47,23 @@ const spinDo = (handler, interval, tryCnt) => {
     }, interval)
 }
 
+// 更新光标位置，更新editorState中的selectionState。
+const updateSelection = (editor: DraftEditor) => {
+    let editorState = editor.props.editorState;
+    const documentSelection = getDraftEditorSelection(
+        editorState,
+        getContentEditableContainer(editor),
+    );
+    const updatedSelectionState = documentSelection.selectionState;
+    editorState = EditorState.forceSelection(
+        editorState,
+        updatedSelectionState,
+    );
+    editor.update(editorState);
+}
+
 module.exports = {
     lockCall,
-    spinDo
+    spinDo,
+    updateSelection
 }

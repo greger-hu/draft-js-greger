@@ -40,6 +40,7 @@ const gkx = require('gkx');
 const invariant = require('invariant');
 const isHTMLElement = require('isHTMLElement');
 const nullthrows = require('nullthrows');
+const DraftUtils = require('DraftUtils');
 
 const isIE = UserAgent.isBrowser('IE');
 
@@ -345,6 +346,12 @@ class DraftEditor extends React.Component<DraftEditorProps, State> {
       this._latestEditorState = x;
     };
     this._model.uuid = this.uuid;
+    this._model.getLatestState = () => {
+      return this._latestEditorState;
+    }
+    this._model.updateSelection = () => {
+      DraftUtils.updateSelection(this);
+    }
   }
 
   render(): React.Node {
