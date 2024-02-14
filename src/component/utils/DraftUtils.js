@@ -60,17 +60,10 @@ const updateSelection = (editor: DraftEditor) => {
         getContentEditableContainer(editor),
     );
     const updatedSelectionState = documentSelection.selectionState;
-    if (documentSelection.needsRecovery) {
-        editorState = EditorState.forceSelection(
-            editorState,
-            updatedSelectionState,
-        );
-    } else {
-        editorState = EditorState.acceptSelection(
-            editorState,
-            updatedSelectionState,
-        );
-    }
+    editorState = EditorState.forceSelection(
+        editorState,
+        updatedSelectionState,
+    );
     editor.update(editorState);
 }
 
