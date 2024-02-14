@@ -33,7 +33,7 @@ const splitTextIntoTextBlocks = require('splitTextIntoTextBlocks');
  * Paste content.
  */
 function editOnPaste(editor: DraftEditor, e: SyntheticClipboardEvent<>): void {
-  DraftUtils.lockCall(editor.uuid, editOnPasteMain);
+  DraftUtils.lockCall(editor.uuid, editOnPasteMain, true, arguments);
 }
 function editOnPasteMain(editor: DraftEditor, e: SyntheticClipboardEvent<>): void {
   e.preventDefault();

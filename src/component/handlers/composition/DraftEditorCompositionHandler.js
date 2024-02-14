@@ -142,7 +142,7 @@ const DraftEditorCompositionHandler = {
    * so we update to force it back to the correct place.
    */
   resolveComposition(editor: DraftEditor): void {
-    DraftUtils.lockCall(editor.uuid, this.resolveCompositionMain);
+    DraftUtils.lockCall(editor.uuid, this.resolveCompositionMain, true, arguments);
   },
   resolveCompositionMain(editor: DraftEditor): void {
     if (stillComposing) {

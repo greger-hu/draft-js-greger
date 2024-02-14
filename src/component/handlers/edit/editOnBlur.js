@@ -21,7 +21,7 @@ const containsNode = require('containsNode');
 const getActiveElement = require('getActiveElement');
 
 function editOnBlur(editor: DraftEditor, e: SyntheticEvent<HTMLElement>): void {
-  DraftUtils.lockCall(editor.uuid, editOnBlurMain);
+  DraftUtils.lockCall(editor.uuid, editOnBlurMain, true, arguments);
 }
 function editOnBlurMain(editor: DraftEditor, e: SyntheticEvent<HTMLElement>): void {
   // In a contentEditable element, when you select a range and then click

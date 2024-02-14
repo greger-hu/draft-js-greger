@@ -60,10 +60,10 @@ function onInputType(inputType: string, editorState: EditorState): EditorState {
  * when an `input` change leads to a DOM/model mismatch, the change should be
  * due to a spellcheck change, and we can incorporate it into our model.
  */
-function editOnInput(editor: DraftEditor, event: ?SyntheticInputEvent<>): void {
-  DraftUtils.lockCall(editor.uuid, editOnInputMain);
+function editOnInput(editor: DraftEditor, e: ?SyntheticInputEvent<>): void {
+  DraftUtils.lockCall(editor.uuid, editOnInputMain, true, arguments);
 }
-function editOnInputMain(editor: DraftEditor, event: ?SyntheticInputEvent<>): void {
+function editOnInputMain(editor: DraftEditor, e: ?SyntheticInputEvent<>): void {
   if (editor._pendingStateFromBeforeInput !== undefined) {
     editor.update(editor._pendingStateFromBeforeInput);
     editor._pendingStateFromBeforeInput = undefined;

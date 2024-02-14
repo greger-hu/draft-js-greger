@@ -79,7 +79,7 @@ function replaceText(
  * occurs on the relevant text nodes.
  */
 function editOnBeforeInput( editor: DraftEditor, e: SyntheticInputEvent<HTMLElement>, ): void {
-  DraftUtils.lockCall(editor.uuid, editOnBeforeInputMain);
+  DraftUtils.lockCall(editor.uuid, editOnBeforeInputMain, true, arguments);
 }
 function editOnBeforeInputMain( editor: DraftEditor, e: SyntheticInputEvent<HTMLElement>, ): void {
   if (editor._pendingStateFromBeforeInput !== undefined) {

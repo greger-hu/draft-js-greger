@@ -18,7 +18,7 @@ const EditorState = require('EditorState');
 const UserAgent = require('UserAgent');
 
 function editOnFocus(editor: DraftEditor, e: SyntheticFocusEvent<>): void {
-  DraftUtils.lockCall(editor.uuid, editOnFocusMain);
+  DraftUtils.lockCall(editor.uuid, editOnFocusMain, true, arguments);
 }
 function editOnFocusMain(editor: DraftEditor, e: SyntheticFocusEvent<>): void {
   const editorState = editor._latestEditorState;

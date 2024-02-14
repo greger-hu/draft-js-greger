@@ -32,7 +32,7 @@ const isNode = require('isInstanceOfNode');
  * styles and entities, for use as an internal paste.
  */
 function editOnCut(editor: DraftEditor, e: SyntheticClipboardEvent<>): void {
-  DraftUtils.lockCall(editor.uuid, editOnCutMain);
+  DraftUtils.lockCall(editor.uuid, editOnCutMain, true, arguments);
 }
 function editOnCutMain(editor: DraftEditor, e: SyntheticClipboardEvent<>): void {
   const editorState = editor._latestEditorState;

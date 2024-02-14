@@ -22,7 +22,7 @@ const getFragmentFromSelection = require('getFragmentFromSelection');
  * fragment if no external clipboard data is supplied.
  */
 function editOnCopy(editor: DraftEditor, e: SyntheticClipboardEvent<>): void {
-  DraftUtils.lockCall(editor.uuid, editOnCopyMain);
+  DraftUtils.lockCall(editor.uuid, editOnCopyMain, true, arguments);
 }
 function editOnCopyMain(editor: DraftEditor, e: SyntheticClipboardEvent<>): void {
   const editorState = editor._latestEditorState;

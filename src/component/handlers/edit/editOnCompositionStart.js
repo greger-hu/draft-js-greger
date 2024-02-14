@@ -21,7 +21,7 @@ const EditorState = require('EditorState');
  * allows handling composition input and disables other edit behavior.
  */
 function editOnCompositionStart( editor: DraftEditor, e: SyntheticEvent<>, ): void {
-  DraftUtils.lockCall(editor.uuid, editOnCompositionStartMain);
+  DraftUtils.lockCall(editor.uuid, editOnCompositionStartMain, true, arguments);
 }
 function editOnCompositionStartMain( editor: DraftEditor, e: SyntheticEvent<>, ): void {
   editor.setMode('composite');

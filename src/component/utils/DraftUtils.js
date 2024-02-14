@@ -1,23 +1,16 @@
-const lockCall = (uuid, func, sync) => {
-    let done = false;
-    spinDo(() => {
-        window.dLock = window.dLock || {};
-        if (dLock[uuid]) {
-            throw new Error('');
+const lockCall = (uuid, func, sync, args) => {
+    // 使用乐观锁 处理并发问题 -- 没必要 -- js单线程的，所以只需要简单同步下就行了
+    window.dLock = window.dLock || {};
+    let rand = Math.random();
+    while (true) {
+        if (dLock[uuid] && dLcok[uuid] != rand) {
+            continue;
         }
-        dLock[uuid] = true;
-        try {
-            func();
-        }
-        finally {
-            dLock = false;
-            done = true;
-        }
-    });
-    if (sync) {
-        while (!done);
+        dLock[uuid] = rand;
+        func(...args);
+        delete dLock[uuid];
+        break;
     }
-    return 0;
 }
 
 const spinDo = (handler, interval, tryCnt) => {

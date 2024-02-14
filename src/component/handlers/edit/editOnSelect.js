@@ -21,7 +21,7 @@ const getContentEditableContainer = require('getContentEditableContainer');
 const getDraftEditorSelection = require('getDraftEditorSelection');
 
 function editOnSelect(editor: DraftEditor): void {
-  DraftUtils.lockCall(editor.uuid, editOnSelectMain);
+  DraftUtils.lockCall(editor.uuid, editOnSelectMain, true, arguments);
 }
 function editOnSelectMain(editor: DraftEditor): void {
   if (

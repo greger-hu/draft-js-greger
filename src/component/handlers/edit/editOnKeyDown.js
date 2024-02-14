@@ -85,7 +85,7 @@ function onKeyCommand(
  * component may provide a custom mapping via the `keyBindingFn` prop.
  */
 function editOnKeyDown( editor: DraftEditor, e: SyntheticKeyboardEvent<HTMLElement>, ): void {
-  DraftUtils.lockCall(editor.uuid, editOnKeyDownMain);
+  DraftUtils.lockCall(editor.uuid, editOnKeyDownMain, true, arguments);
 }
 function editOnKeyDownMain( editor: DraftEditor, e: SyntheticKeyboardEvent<HTMLElement>, ): void {
   const keyCode = e.which;
