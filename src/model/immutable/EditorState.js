@@ -521,6 +521,7 @@ class EditorState {
     editorState: EditorState,
     contentState: ContentState,
     forceSelection: boolean = true,
+    noChangeSel: boolean
   ): EditorState {
     if (editorState.getCurrentContent() === contentState) {
       return editorState;
@@ -531,13 +532,17 @@ class EditorState {
       editorState.getDirectionMap(),
     );
 
-    return EditorState.set(editorState, {
+    let param = {
       currentContent: contentState,
       directionMap,
-      selection: contentState.getSelectionAfter(),
-      forceSelection,
       inlineStyleOverride: null,
-    });
+    };
+
+    if (!noChangeSel) {
+      param.selection = contentState.getSelectionAfter();
+      param.forceSelection = forceSelection;
+    }
+    return EditorState.set(editorState, param);
   }
 
   /**
