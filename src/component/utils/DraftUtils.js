@@ -54,7 +54,7 @@ const spinDo = (handler, interval, tryCnt) => {
 
 // 更新光标位置，更新editorState中的selectionState。
 const updateSelection = (editor: DraftEditor) => {
-    let editorState = editor.props.editorState;
+    let editorState = editor._latestEditorState ;
     const documentSelection = getDraftEditorSelection(
         editorState,
         getContentEditableContainer(editor),
