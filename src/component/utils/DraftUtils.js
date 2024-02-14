@@ -4,8 +4,11 @@ const EditorState = require('EditorState');
 const getContentEditableContainer = require('getContentEditableContainer');
 const getDraftEditorSelection = require('getDraftEditorSelection');
 
-// 同步调用，防止editorState存在多个不同副本，导致数据丢失
+// 同步调用，防止editorState存在多个不同副本，导致数据丢失 -- deprecated  好像没啥用，不同步也没啥影响
 const lockCall = (uuid, func, sync, args) => {
+    func(...args);
+}
+const lockCall2 = (uuid, func, sync, args) => {
     // 使用乐观锁 处理并发问题 -- 没必要 -- js单线程的，所以只需要简单同步下就行了
     window.dLock = window.dLock || {};
     // let rand = Math.random();
