@@ -9,15 +9,20 @@ const lockCall = (uuid, func, sync, args) => {
     // 使用乐观锁 处理并发问题 -- 没必要 -- js单线程的，所以只需要简单同步下就行了
     window.dLock = window.dLock || {};
     // let rand = Math.random();
+    let deadCnt = window.lockDeadCnt || 1000;
     while (true) {
+        if (deadCnt-- <= 0) {
+            console.error(`可能存在死锁,${func.name}等待${dLock[uuid]?.name}`)
+            break;
+        }
         if (dLock[uuid] && dLock[uuid] != func) {
             continue;
         }
         dLock[uuid] = func;
-        console.log(func.name + '开始');
+        // console.log(func.name + '开始');
         func(...args);
         delete dLock[uuid];
-        console.log(func.name + '结束');
+        // console.log(func.name + '结束');
         break;
     }
 }
