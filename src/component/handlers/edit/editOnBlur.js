@@ -44,7 +44,8 @@ function editOnBlurMain(editor: DraftEditor, e: SyntheticEvent<HTMLElement>): vo
     if (
       selection.rangeCount === 1 &&
       containsNode(editorNode, selection.anchorNode) &&
-      containsNode(editorNode, selection.focusNode)
+      containsNode(editorNode, selection.focusNode) && 
+      (selection.anchorNode != selection.focusNode || selection.anchorOffset != selection.focusOffset) // 只有选中块时才需要清除选中
     ) {
       selection.removeAllRanges();
     }
