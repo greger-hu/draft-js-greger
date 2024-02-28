@@ -24,6 +24,11 @@ function editOnBlur(editor: DraftEditor, e: SyntheticEvent<HTMLElement>): void {
   DraftUtils.lockCall(editor.uuid, editOnBlurMain, true, arguments);
 }
 function editOnBlurMain(editor: DraftEditor, e: SyntheticEvent<HTMLElement>): void {
+  if (DraftUtils.isFromCtrl(e)) {
+    return;
+  }
+
+
   // In a contentEditable element, when you select a range and then click
   // another active element, this does trigger a `blur` event but will not
   // remove the DOM selection from the contenteditable.

@@ -70,8 +70,16 @@ const updateSelection = (editor: DraftEditor) => {
     editor.update(editorState);
 }
 
+
+// 是否来源控件
+const isFromCtrl = (e) => {
+    // 如果target是控件，不需要更新EditorState
+    return $(e.target).parents('.nest-control').length > 0;
+}
+
 module.exports = {
     lockCall,
     spinDo,
-    updateSelection
+    updateSelection,
+    isFromCtrl
 }

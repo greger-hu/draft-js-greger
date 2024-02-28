@@ -40,6 +40,10 @@ function editOnFocusMain(editor: DraftEditor, e: SyntheticFocusEvent<>): void {
   // Other browsers also don't have this bug, so we prefer to acceptSelection
   // when possible, to ensure that unfocusing and refocusing a Draft editor
   // doesn't preserve the selection, matching how textareas work.
+
+  if (DraftUtils.isFromCtrl(e)) {
+    return;
+  }
   if (UserAgent.isBrowser('Chrome < 60.0.3081.0')) {
     editor.update(EditorState.forceSelection(editorState, selection));
   } else {

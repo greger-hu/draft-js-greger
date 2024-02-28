@@ -20,10 +20,10 @@ const EditorState = require('EditorState');
 const getContentEditableContainer = require('getContentEditableContainer');
 const getDraftEditorSelection = require('getDraftEditorSelection');
 
-function editOnSelect(editor: DraftEditor): void {
+function editOnSelect(editor: DraftEditor, e): void {
   DraftUtils.lockCall(editor.uuid, editOnSelectMain, true, arguments);
 }
-function editOnSelectMain(editor: DraftEditor): void {
+function editOnSelectMain(editor: DraftEditor, e): void {
   if (
     editor._blockSelectEvents ||
     editor._latestEditorState !== editor.props.editorState
@@ -48,6 +48,9 @@ function editOnSelectMain(editor: DraftEditor): void {
   );
   const updatedSelectionState = documentSelection.selectionState;
 
+  if (DraftUtils.isFromCtrl(e)) {
+    return;
+  }
   if (updatedSelectionState !== editorState.getSelection()) {
     if (documentSelection.needsRecovery) {
       editorState = EditorState.forceSelection(
