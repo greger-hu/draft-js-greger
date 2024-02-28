@@ -166,12 +166,17 @@ function editOnInputMain(editor: DraftEditor, e: ?SyntheticInputEvent<>): void {
   const entityType = entity != null ? entity.getMutability() : null;
   const preserveEntity = entityType === 'MUTABLE';
 
+  if (entity != null) {
+    return;
+  }
+
   // Immutable or segmented entities cannot properly be handled by the
   // default browser undo, so we have to use a different change type to
   // force using our internal undo method instead of falling through to the
   // native browser undo.
   const changeType = preserveEntity ? 'spellcheck-change' : 'apply-entity';
 
+  
   const newContent = DraftModifier.replaceText(
     content,
     targetRange,
