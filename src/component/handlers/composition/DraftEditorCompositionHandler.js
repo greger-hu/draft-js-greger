@@ -141,8 +141,8 @@ const DraftEditorCompositionHandler = {
    * Resetting innerHTML will move focus to the beginning of the editor,
    * so we update to force it back to the correct place.
    */
-  resolveComposition(editor: DraftEditor, e, handler): void {
-    DraftUtils.lockCall(editor.uuid, handler.resolveCompositionMain, true, arguments);
+  resolveComposition(editor: DraftEditor): void {
+    DraftUtils.lockCall(editor.uuid, DraftEditorCompositionHandler.resolveCompositionMain, true, arguments);
   },
   resolveCompositionMain(editor: DraftEditor): void {
     if (stillComposing) {

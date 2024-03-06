@@ -283,7 +283,7 @@ class DraftEditor extends React.Component<DraftEditorProps, State> {
           if (flushControlled) {
             flushControlled(() => method(this, e));
           } else {
-            method(this, e, this._handler);
+            method(this, e);
           }
         }
       }

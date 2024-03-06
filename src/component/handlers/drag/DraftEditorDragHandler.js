@@ -80,8 +80,8 @@ const DraftEditorDragHandler = {
   /**
    * Handle data being dropped.
    */
-  onDrop(editor: DraftEditor, e: Object, handler): void {
-    DraftUtils.lockCall(editor.uuid, handler.onDropMain, true, arguments);
+  onDrop(editor: DraftEditor, e: Object): void {
+    DraftUtils.lockCall(editor.uuid, DraftEditorDragHandler.onDropMain, true, arguments);
   },
   onDropMain(editor: DraftEditor, e: Object): void {
     const data = new DataTransfer(e.nativeEvent.dataTransfer);
