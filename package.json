@@ -1,7 +1,7 @@
 {
   "name": "draft-js-greger",
   "description": "A React framework for building text editors.",
-  "version": "1.0.56",
+  "version": "1.0.58",
   "keywords": [
     "draftjs",
     "editor",
