@@ -64,6 +64,7 @@ type Props = {
  * DOM Selection API. In this way, top-level components can declaratively
  * maintain the selection state.
  */
+
 class DraftEditorLeaf extends React.Component<Props> {
   /**
    * By making individual leaf instances aware of their context within
@@ -76,6 +77,7 @@ class DraftEditorLeaf extends React.Component<Props> {
    */
 
   leaf: ?HTMLElement;
+  $parentEle;
 
   _setSelection(): void {
     const {selection} = this.props;
@@ -163,14 +165,28 @@ class DraftEditorLeaf extends React.Component<Props> {
       styleObj = Object.assign(styleObj, newStyles);
     }
 
+    // 修复输入法输入再按esc时，会删除dom；这里需要进行恢复
+    if (this.leaf) {
+      if ($(this.leaf).parents().length == 0) {
+        this.$parentEle.empty().append(this.leaf);
+      }
+    }
+
+
     return (
       <span
         data-offset-key={offsetKey}
-        ref={ref => (this.leaf = ref)}
+        ref={this.getLeaf.bind(this)}
         style={styleObj}>
         <DraftEditorTextNode>{text}</DraftEditorTextNode>
       </span>
     );
+  }
+
+  getLeaf(ref) {
+    this.leaf = ref;
+    this.$parentEle = $(this.leaf).parents().first();
+
   }
 }
 
